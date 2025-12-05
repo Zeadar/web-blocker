@@ -12,9 +12,9 @@ depend() {
     after firewall
 }
 
-start_pre() {
-    checkpath --directory --mode 0755 /var/run
-}
+# start_pre() {
+#     checkpath --directory --mode 0755 /var/run
+# }
 
 start() {
     ebegin "Starting ${name}..."

@@ -4,15 +4,15 @@ OBJDIR = build
 TARGET = $(OBJDIR)/out
 SRCS = waitforwakeup.c parse_config.c main.c
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
-CFLAGS=$(shell pkg-config --cflags libelogind)
+CFLAGS=$(shell pkg-config --cflags libelogind) -Wextra -Wall
 LDFLAGS=$(shell pkg-config --libs libelogind) -lpthread
-#-D_GNU_SOURCE
+
 all: debug
 
-debug: CFLAGS += -Wextra -Wall -g -O0 -DDEBUG_BUILD
+debug: CFLAGS += -g -O0 -DDEBUG_BUILD
 debug: $(OBJDIR) $(TARGET)
 
-release: CFLAGS += -O3 -march=native
+release: CFLAGS += -O3
 release: $(OBJDIR) $(TARGET)
 	strip $(TARGET)
 	rm -v $(OBJDIR)/*.o
